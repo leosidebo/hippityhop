@@ -49,10 +49,7 @@ function keyUpListener(event) {
 function loadImage() {
     playerImg.src = 'images/PlayerSprite2.png';
     playerImg.onload = function() {
-        player.draw(
-            cycleLoopMove[currentLoopIndex],
-            player.currentDirection
-        );
+        player.draw(cycleLoopMove[currentLoopIndex], player.currentDirection);
         window.requestAnimationFrame(gameLoop);
     };
 }
@@ -71,13 +68,6 @@ function gameLoop() {
     player.update();
 
     if (player.hitBottom) {
-        if (keyPresses.a) {
-            player.moveX(-player.movement_speed, facing_right);
-            hasMoved = true;
-        } else if (keyPresses.d) {
-            player.moveX(player.movement_speed, facing_left);
-            hasMoved = true;
-        }
 
         if (keyPresses.w) {
             jumpInProgress = true;
@@ -91,12 +81,21 @@ function gameLoop() {
                 }
             }
 
-            if (jumpForceUp < 75) {
-                jumpForceUp++;
+            if (player.jumpForceUp < 75) {
+                player.jumpForceUp++;
             }
-        } else if (jumpInProgress) {
-            velocityY = jumpForceUp;
-            jump(jumpForceUp, jumpForceLeft, jumpForceRight);
+        } 
+        else if (jumpInProgress) {
+            player.jump(player.jumpForceUp);
+        }
+        else {
+            if (keyPresses.a) {
+                player.moveX(-player.movement_speed, facing_right);
+                hasMoved = true;
+            } else if (keyPresses.d) {
+                player.moveX(player.movement_speed, facing_left);
+                hasMoved = true;
+            }
         }
     }
 
@@ -108,7 +107,7 @@ function gameLoop() {
             currentLoopIndex %= cycleLoopMove.length;
         }
 
-        player.draw(cycleLoopMove[currentLoopIndex, player.currentDirection])
+        player.draw(cycleLoopMove[(currentLoopIndex, player.currentDirection)]);
     }
 
     window.requestAnimationFrame(gameLoop);
