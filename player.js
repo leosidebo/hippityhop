@@ -22,13 +22,12 @@ class Player {
             this.velocityY = this.gravitySpeed;
         }
 
-        if (!this.hitBottom) {
+        else  {
             this.velocityY += this.gravitySpeed;
         }
-        
+
         this.x += this.velocityX;
         this.y += this.velocityY;
-        
     }
 
     draw(frameX, frameY) {
@@ -42,7 +41,7 @@ class Player {
             this.y,
             scaledSize,
             scaledSize
-        )
+        );
     }
 
     moveX(deltaX, direction) {
@@ -54,5 +53,14 @@ class Player {
         }
 
         this.currentDirection = direction;
+    }
+
+    jump(forceUp) {
+        console.log(forceUp);
+        this.velocityY -= forceUp;
+        this.y += this.velocityY;
+        this.hitBottom = false;
+        this.jumpForceUp = 0;
+        jumpInProgress = false;
     }
 }
