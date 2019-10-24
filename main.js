@@ -14,15 +14,14 @@ let ctx = canvas.getContext('2d');
 canvas.width = 850;
 canvas.height = 550;
 
-let currentLoopIndex = 0;
+let currentLoopMove = 0;
+let currentLoopJump = 0;
 let frameCount = 0;
 let keyPresses = {};
 let positionX = canvas.width / 2 - scaledSize;
 let positionY = 0;
 let playerImg = new Image();
 let gravity = 0.02;
-let jumpForceLeft = 0;
-let jumpForceRight = 0;
 let jumpInProgress = false;
 
 let player = new Player(positionX, positionY);
@@ -49,7 +48,7 @@ function keyUpListener(event) {
 function loadImage() {
     playerImg.src = 'images/PlayerSprite2.png';
     playerImg.onload = function() {
-        player.draw(cycleLoopMove[currentLoopIndex], player.currentDirection);
+        player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
         window.requestAnimationFrame(gameLoop);
     };
 }
@@ -62,7 +61,7 @@ loadImage();
  */
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    player.draw(cycleLoopMove[currentLoopIndex], player.currentDirection);
+    player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
 
     let hasMoved = false;
     player.update();
@@ -71,13 +70,13 @@ function gameLoop() {
 
         if (keyPresses.w) {
             jumpInProgress = true;
-            if (keyPresses.a && jumpForceLeft == 0) {
-                if (jumpForceRight < 75) {
-                    jumpForceRight++;
+            if (keyPresses.a && player.jumpForceLeft == 0) {
+                if (player.jumpForceRight < 75) {
+                    player.jumpForceRight++;
                 }
-            } else if (keyPresses.d && jumpForceRight == 0) {
-                if (jumpForceLeft < 75) {
-                    jumpForceLeft++;
+            } else if (keyPresses.d && player.jumpForceRight == 0) {
+                if (player.jumpForceLeft < 75) {
+                    player.jumpForceLeft++;
                 }
             }
 
@@ -86,7 +85,7 @@ function gameLoop() {
             }
         } 
         else if (jumpInProgress) {
-            player.jump(player.jumpForceUp);
+            player.jump(player.jumpForceUp, player.jumpForceRight, player.jumpForceLeft);
         }
         else {
             if (keyPresses.a) {
@@ -99,15 +98,28 @@ function gameLoop() {
         }
     }
 
-    if (hasMoved || currentLoopIndex != 0) {
+    // FIXA DETTA
+    if (jumpInProgress) {
+        frameCount++;
+        if (frameCount >= frame_limit_jump) {
+            frameCount = 0;
+            currentLoopJump++;
+            currentLoopJump %= cycleLoopJump.length;
+        }
+
+        console.log(currentLoopJump);
+        player.draw(cycleLoopJump[(currentLoopJump, (player.currentDirection + 1))]);
+    }
+
+    if (hasMoved || currentLoopMove != 0) {
         frameCount++;
         if (frameCount >= frame_limit_move) {
             frameCount = 0;
-            currentLoopIndex++;
-            currentLoopIndex %= cycleLoopMove.length;
+            currentLoopMove++;
+            currentLoopMove %= cycleLoopMove.length;
         }
 
-        player.draw(cycleLoopMove[(currentLoopIndex, player.currentDirection)]);
+        player.draw(cycleLoopMove[(currentLoopMove, player.currentDirection)]);
     }
 
     window.requestAnimationFrame(gameLoop);
