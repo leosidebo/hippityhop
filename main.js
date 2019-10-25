@@ -11,8 +11,46 @@ const frame_limit_jump = 7;
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 
-canvas.width = 850;
-canvas.height = 550;
+var gameMap = [
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+    1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+];
+var tileW = 26, tileH = 26;
+var mapW = 30, mapH = 20;
+var currentSecond = 0;
+var mapImg = new Image;
+mapImg.src = 'images/map-textures.png';
+
+canvas.width = 780;
+canvas.height = 520;
 
 let currentLoopMove = 0;
 let currentLoopJump = 0;
@@ -42,6 +80,10 @@ function keyUpListener(event) {
     keyPresses[event.key] = false;
 }
 
+window.onload = function() {
+    this.requestAnimationFrame(drawGame);
+}
+
 /**
  * Loads the image for the player and animates it.
  */
@@ -55,6 +97,22 @@ function loadImage() {
 
 loadImage();
 
+function drawGame() {
+    for (var y = 0; y < mapH; ++y) {
+        for (var x = 0; x < mapW; ++x) {
+            switch (gameMap[y * mapW + x]) {
+                case 0:
+                    ctx.drawImage(mapImg, 0, 0, 25, 25, x * tileW, y * tileH, 25, 25);
+                    break;
+                default:
+                    ctx.drawImage(mapImg, 52, 0, 26, 26, x * tileW, y * tileH, 26, 26);
+            }
+        }
+    }
+
+    requestAnimationFrame(drawGame);
+}
+
 let jumpCharge = 0;
 
 /**
@@ -63,14 +121,17 @@ let jumpCharge = 0;
  */
 function gameLoop() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
+    player.update();
+    if (!jumpInProgress) {
+        player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
+    }
 
     let hasMoved = false;
-    player.update();
 
     if (player.hitBottom) {
 
         if (keyPresses.w) {
+            player.stopMoveX();
             jumpInProgress = true;
             if (keyPresses.a && player.jumpForceLeft == 0) {
                 if (player.jumpForceRight < 8) {
@@ -109,20 +170,23 @@ function gameLoop() {
                 player.moveX(player.movement_speed, facing_left);
                 hasMoved = true;
             }
+
+            if (!keyPresses.a && !keyPresses.d) {
+                player.stopMoveX();
+            }
         }
     }
 
     // FIXA DETTA
     if (jumpInProgress) {
         frameCount++;
-        if (frameCount >= frame_limit_jump) {
+        if (frameCount >= frame_limit_jump && cycleLoopJump[currentLoopJump] != 1) {
             frameCount = 0;
             currentLoopJump++;
-            currentLoopJump %= cycleLoopJump.length;
         }
 
         console.log(currentLoopJump);
-        player.draw(cycleLoopJump[(currentLoopJump, (player.currentDirection + 1))]);
+        player.draw(cycleLoopJump[currentLoopJump], (player.currentDirection + 1));
     }
 
     if (hasMoved || currentLoopMove != 0) {
