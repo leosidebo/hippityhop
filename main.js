@@ -55,6 +55,8 @@ function loadImage() {
 
 loadImage();
 
+let jumpCharge = 0;
+
 /**
  * The main gameloop that executes every frame.
  * Animates vertical movement upon valid keypresses.
@@ -71,17 +73,29 @@ function gameLoop() {
         if (keyPresses.w) {
             jumpInProgress = true;
             if (keyPresses.a && player.jumpForceLeft == 0) {
-                if (player.jumpForceRight < 75) {
-                    player.jumpForceRight++;
+                if (player.jumpForceRight < 8) {
+                   jumpCharge++;
+                   if (jumpCharge > 3 || player.jumpForceRight < 3) {
+                       player.jumpForceRight++;
+                       jumpCharge = 0;
+                   }
                 }
             } else if (keyPresses.d && player.jumpForceRight == 0) {
-                if (player.jumpForceLeft < 75) {
-                    player.jumpForceLeft++;
+                if (player.jumpForceLeft < 8) {
+                    jumpCharge++;
+                    if (jumpCharge > 3 || player.jumpForceLeft < 3) {
+                        player.jumpForceLeft++;
+                        jumpCharge = 0;
+                    }
                 }
             }
 
-            if (player.jumpForceUp < 75) {
-                player.jumpForceUp++;
+            if (player.jumpForceUp < 10) {
+                jumpCharge++;
+                if (jumpCharge > 3) {
+                    player.jumpForceUp++;
+                    jumpCharge = 0;
+                }
             }
         } 
         else if (jumpInProgress) {
