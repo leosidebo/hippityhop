@@ -27,7 +27,6 @@ class Player {
         if (this.y + scaledSize + this.gravitySpeed > canvas.height) {
             this.hitBottom = true;
             this.gravitySpeed = 0;
-            this.velocityX = 0;
             this.velocityY = this.gravitySpeed;
         }
 
@@ -35,9 +34,9 @@ class Player {
             this.velocityY += this.gravitySpeed;
         }
 
-        /* if (
-            this.x - this.velocityX > 0 &&
-            this.x + scaledSize + this.velocityX < canvas.width
+        if (
+            this.x == 0 ||
+            this.x + scaledSize + this.velocityX == canvas.width
         ) {
             console.log("jam")
             this.velocityX = 0;
@@ -45,13 +44,13 @@ class Player {
         }
 
         if (
-            this.y - this.velocityY > 0 &&
-            this.y + scaledSize + this.velocityY < canvas.height
+            this.y - this.velocityY == 0 &&
+            this.y + scaledSize + this.velocityY == canvas.height
         ) {
             console.log("bill")
             this.velocityX = 0;
             this.velocityY = this.gravitySpeed;
-        } */
+        } 
 
         this.x += this.velocityX;
         this.y += this.velocityY;
@@ -82,14 +81,18 @@ class Player {
      * @param {*} direction 
      */
     moveX(deltaX, direction) {
-        if (
+        /*if (
             this.x + deltaX > 0 &&
             this.x + scaledSize + deltaX < canvas.width
-        ) {
-            this.x += deltaX;
-        }
+        ) { */
+        this.velocityX = deltaX;
+        //}
 
         this.currentDirection = direction;
+    }
+
+    stopMoveX() {
+        this.velocityX = 0;
     }
 
     /**
@@ -107,5 +110,6 @@ class Player {
         this.jumpForceLeft = 0;
         this.jumpForceRight = 0;
         jumpInProgress = false;
+        currentLoopJump = 0;
     }
 }
