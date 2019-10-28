@@ -33,5 +33,10 @@ body {
 }
 
 #canvas {
-    background-color: white;
+    background: transparent;
+}
+
+#background {
+    position: absolute;
+    z-index: 1;
 }

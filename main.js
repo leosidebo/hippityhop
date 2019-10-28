@@ -8,7 +8,7 @@ const facing_left = 2;
 const frame_limit_move = 5;
 const frame_limit_jump = 7;
 
-let canvas = document.querySelector('canvas');
+let canvas = document.querySelector('#canvas');
 let ctx = canvas.getContext('2d');
 
 var gameMap = [
@@ -81,7 +81,27 @@ function keyUpListener(event) {
 }
 
 window.onload = function() {
-    this.requestAnimationFrame(drawGame);
+    drawBackground();
+}
+
+function drawBackground() {
+    let canvasBG = document.querySelector('canvas')
+    let context = canvasBG.getContext('2d');
+
+    canvasBG.width = 780;
+    canvasBG.height = 520;
+
+    for (var y = 0; y < mapH; ++y) {
+        for (var x = 0; x < mapW; ++x) {
+            switch (gameMap[y * mapW + x]) {
+                case 0:
+                    context.drawImage(mapImg, 0, 0, 24, 24, x * tileW, y * tileH, 26, 26);
+                    break;
+                default:
+                    context.drawImage(mapImg, 48, 0, 24, 24, x * tileW, y * tileH, 26, 26);
+            }
+        }
+    }
 }
 
 /**
@@ -113,8 +133,6 @@ function drawGame() {
             }
         }
     }
-
-    requestAnimationFrame(drawGame);
 }
 
 let jumpCharge = 0;
