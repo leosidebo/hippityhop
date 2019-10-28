@@ -11,7 +11,7 @@ const frame_limit_jump = 7;
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 
-/* var gameMap = [
+var gameMap = [
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
@@ -47,7 +47,7 @@ var tileW = 26, tileH = 26;
 var mapW = 30, mapH = 20;
 var currentSecond = 0;
 var mapImg = new Image;
-mapImg.src = 'images/map-textures.png'; */
+mapImg.src = 'images/map-textures.png'; 
 
 canvas.width = 780;
 canvas.height = 520;
@@ -101,21 +101,21 @@ loadImage();
 /**
  * Commented out as this is not working at the moment.
  */
-/* function drawGame() {
+function drawGame() {
     for (var y = 0; y < mapH; ++y) {
         for (var x = 0; x < mapW; ++x) {
             switch (gameMap[y * mapW + x]) {
                 case 0:
-                    ctx.drawImage(mapImg, 0, 0, 25, 25, x * tileW, y * tileH, 25, 25);
+                    ctx.drawImage(mapImg, 0, 0, 24, 24, x * tileW, y * tileH, 26, 26);
                     break;
                 default:
-                    ctx.drawImage(mapImg, 52, 0, 26, 26, x * tileW, y * tileH, 26, 26);
+                    ctx.drawImage(mapImg, 48, 0, 24, 24, x * tileW, y * tileH, 26, 26);
             }
         }
     }
 
     requestAnimationFrame(drawGame);
-} */
+}
 
 let jumpCharge = 0;
 
