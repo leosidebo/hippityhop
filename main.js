@@ -44,6 +44,7 @@ var gameMap = [
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 ];
 var tileW = 26, tileH = 26;
+var wallW = tileW * 3;
 var mapW = 30, mapH = 20;
 var currentSecond = 0;
 var mapImg = new Image;

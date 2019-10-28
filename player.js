@@ -36,11 +36,11 @@ class Player {
 
         // Does not work at the moment
         if (
-            this.x == 0 ||
+            this.x + this.velocityX < scaledSize ||
             this.x + scaledSize + this.velocityX == canvas.width
         ) {
             console.log("jam")
-            this.velocityX = 0;
+            this.velocityX = -this.velocityX;
             this.velocityY = this.gravitySpeed;
         }
 
