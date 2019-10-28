@@ -88,7 +88,8 @@ window.onload = function() {
  * Loads the image for the player and animates it.
  */
 function loadImage() {
-    playerImg.src = '/images/PlayerSprite2.png';
+    playerImg.src =
+        'http://leosidebo.se/hippityhop/images/PlayerSprite2.png';
     playerImg.onload = function() {
         player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
         window.requestAnimationFrame(gameLoop);
