@@ -23,36 +23,33 @@ class Player {
             this.gravitySpeed += gravity;
         }
 
-        // 
+        // If the player hits the ground, gravity loses its effect
         if (this.y + scaledSize + this.gravitySpeed > canvas.height) {
             this.hitBottom = true;
             this.gravitySpeed = 0;
             this.velocityY = this.gravitySpeed;
         }
-
         else  {
             this.velocityY += this.gravitySpeed;
         }
 
-        // Does not work at the moment
+        // Halts ground movement towards walls and bounces the player off walls when jumping
         if (
-            this.x + this.velocityX < scaledSize ||
-            this.x + scaledSize + this.velocityX == canvas.width
+            this.x + this.velocityX <  wallW ||
+            this.x + scaledSize + this.velocityX > canvas.width - wallW
         ) {
-            console.log("jam")
-            this.velocityX = -this.velocityX;
+            this.velocityX = -this.velocityX / 2;
             this.velocityY = this.gravitySpeed;
         }
 
         // Does not work at the moment
-        if (
+        /* if (
             this.y - this.velocityY == 0 &&
             this.y + scaledSize + this.velocityY == canvas.height
         ) {
-            console.log("bill")
             this.velocityX = 0;
             this.velocityY = this.gravitySpeed;
-        } 
+        } */
 
         this.x += this.velocityX;
         this.y += this.velocityY;

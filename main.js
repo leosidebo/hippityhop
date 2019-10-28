@@ -1,6 +1,7 @@
 const scale = 0.5;
 const size = 128;
 const scaledSize = scale * size;
+const scaledMiddle = scaledSize / 2;
 const cycleLoopMove = [0, 1, 2, 3, 2, 1, 0];
 const cycleLoopJump = [0, 3, 2, 1];
 const facing_right = 0;
@@ -86,6 +87,7 @@ window.onload = function() {
 }
 
 function drawBackground() {
+    console.log(scaledSize);
     let canvasBG = document.querySelector('canvas')
     let context = canvasBG.getContext('2d');
 
