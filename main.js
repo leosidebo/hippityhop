@@ -11,7 +11,7 @@ const frame_limit_jump = 7;
 let canvas = document.querySelector('canvas');
 let ctx = canvas.getContext('2d');
 
-var gameMap = [
+/* var gameMap = [
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
@@ -47,7 +47,7 @@ var tileW = 26, tileH = 26;
 var mapW = 30, mapH = 20;
 var currentSecond = 0;
 var mapImg = new Image;
-mapImg.src = 'images/map-textures.png';
+mapImg.src = 'images/map-textures.png'; */
 
 canvas.width = 780;
 canvas.height = 520;
@@ -88,7 +88,7 @@ window.onload = function() {
  * Loads the image for the player and animates it.
  */
 function loadImage() {
-    playerImg.src = 'images/PlayerSprite2.png';
+    playerImg.src = '/images/PlayerSprite2.png';
     playerImg.onload = function() {
         player.draw(cycleLoopMove[currentLoopMove], player.currentDirection);
         window.requestAnimationFrame(gameLoop);
@@ -97,7 +97,10 @@ function loadImage() {
 
 loadImage();
 
-function drawGame() {
+/**
+ * Commented out as this is not working at the moment.
+ */
+/* function drawGame() {
     for (var y = 0; y < mapH; ++y) {
         for (var x = 0; x < mapW; ++x) {
             switch (gameMap[y * mapW + x]) {
@@ -111,7 +114,7 @@ function drawGame() {
     }
 
     requestAnimationFrame(drawGame);
-}
+} */
 
 let jumpCharge = 0;
 
@@ -177,7 +180,7 @@ function gameLoop() {
         }
     }
 
-    // FIXA DETTA
+    // Yet to be fixed
     if (jumpInProgress) {
         frameCount++;
         if (frameCount >= frame_limit_jump && cycleLoopJump[currentLoopJump] != 1) {

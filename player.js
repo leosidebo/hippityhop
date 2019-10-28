@@ -34,6 +34,7 @@ class Player {
             this.velocityY += this.gravitySpeed;
         }
 
+        // Does not work at the moment
         if (
             this.x == 0 ||
             this.x + scaledSize + this.velocityX == canvas.width
@@ -43,6 +44,7 @@ class Player {
             this.velocityY = this.gravitySpeed;
         }
 
+        // Does not work at the moment
         if (
             this.y - this.velocityY == 0 &&
             this.y + scaledSize + this.velocityY == canvas.height
