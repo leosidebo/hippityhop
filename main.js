@@ -36,7 +36,7 @@ var gameMap = [
     1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
-	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
+	1, 1, 1, 0, 0, 2, 2, 2, 2, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
 	1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1,
@@ -87,7 +87,6 @@ window.onload = function() {
 }
 
 function drawBackground() {
-    console.log(scaledSize);
     let canvasBG = document.querySelector('canvas')
     let context = canvasBG.getContext('2d');
 
@@ -100,8 +99,11 @@ function drawBackground() {
                 case 0:
                     context.drawImage(mapImg, 0, 0, 24, 24, x * tileW, y * tileH, 26, 26);
                     break;
-                default:
+                case 1:
                     context.drawImage(mapImg, 48, 0, 24, 24, x * tileW, y * tileH, 26, 26);
+                    break;
+                default:
+                    context.drawImage(mapImg, 24, 0, 24, 24, x * tileW, y * tileH, 26, 26);
             }
         }
     }
