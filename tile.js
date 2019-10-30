@@ -4,5 +4,6 @@ class Tile {
         this.y = y;
         this.height = size;
         this.width = size;
+
     }
 }

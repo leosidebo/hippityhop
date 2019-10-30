@@ -23,11 +23,27 @@ class Player {
             this.gravitySpeed += gravity;
         }
 
+        if (!this.hitBottom) {
+            for (let i = 0; i < collidableObjects.length; i++) { // Collidableobjects < också
+                console.log(this.y + scaledSize + this.gravitySpeed);
+                console.log(collidableObjects[i].y);
+                console.log(collidableObjects[i].y - collidableObjects[i].height);
+                if (
+                    (this.y + scaledSize + this.gravitySpeed >
+                        collidableObjects[i].y &&
+                        this.x + this.velocityX < collidableObjects[i].x &&
+                        this.y + this.gravitySpeed <
+                        collidableObjects[i].y - collidableObjects[i].height)
+                ) {
+                    this.nullifyGravity();
+                }
+                
+            }
+        }
+
         // If the player hits the ground, gravity loses its effect
         if (this.y + scaledSize + this.gravitySpeed > canvas.height) {
-            this.hitBottom = true;
-            this.gravitySpeed = 0;
-            this.velocityY = this.gravitySpeed;
+            this.nullifyGravity();
         }
         else  {
             this.velocityY += this.gravitySpeed;
@@ -110,5 +126,11 @@ class Player {
         this.jumpForceRight = 0;
         jumpInProgress = false;
         currentLoopJump = 0;
+    }
+
+    nullifyGravity() {
+        this.hitBottom = true;
+        this.gravitySpeed = 0;
+        this.velocityY = this.gravitySpeed;
     }
 }
