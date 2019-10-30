@@ -45,6 +45,7 @@ canvas.width = 780;
 canvas.height = 520;
 
 let collidableObjects= [];
+let lastInRowObjects = [];
 let currentLoopMove = 0;
 let currentLoopJump = 0;
 let frameCount = 0;
@@ -90,8 +91,8 @@ function drawBackground() {
     canvasBG.width = 780;
     canvasBG.height = 520;
 
-    for (var y = 0; y < mapH; ++y) {
-        for (var x = 0; x < mapW; ++x) {
+    for (let y = 0; y < mapH; ++y) {
+        for (let x = 0; x < mapW; ++x) {
             switch (gameMap[y * mapW + x]) {
                 case 0:
                     context.drawImage(mapImg, 0, 0, 24, 24, x * tileW, y * tileH, 26, 26);
@@ -101,7 +102,13 @@ function drawBackground() {
                     break;
                 default:
                     context.drawImage(mapImg, 24, 0, 24, 24, x * tileW, y * tileH, 26, 26);
-                    collidableObjects.push(new Tile(x * tileW, y * tileH, 26));
+                    if(gameMap[y * mapW + (x - 1)] == 0 || gameMap[y * mapW + (x + 1)] == 0) {
+                        collidableObjects.push(new Tile(x * tileW, y * tileH, 26, true));
+                        lastInRowObjects.push(new Tile(x * tileW, y * tileH, 26, true));
+                    }
+                    else {
+                        collidableObjects.push(new Tile(x * tileW, y * tileH, 26, false));
+                    }
             }
         }
     }

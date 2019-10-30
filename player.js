@@ -23,18 +23,27 @@ class Player {
             this.gravitySpeed += gravity;
         }
 
+        var currentRow = -2;
         if (!this.hitBottom) {
             for (let i = 0; i < collidableObjects.length; i++) { // Collidableobjects < också
-                console.log(this.y + scaledSize + this.gravitySpeed);
-                console.log(collidableObjects[i].y);
-                console.log(collidableObjects[i].y - collidableObjects[i].height);
+                if (currentRow < 0) {
+                    currentRow += 2;
+                }
+
+                if (this.y + this.velocityY < collidableObjects[i].y && 
+                    this.x + this.velocityX > lastInRowObjects[currentRow + 1].x &&
+                    this.x + this.velocityX < lastInRowObjects[currentRow].x) {
+                        this.velocityY = -this.velocityY
+                }
+
                 if (
-                    (this.y + scaledSize + this.gravitySpeed >
+                        this.y + scaledSize + this.gravitySpeed >
                         collidableObjects[i].y &&
-                        this.x + this.velocityX < collidableObjects[i].x &&
-                        this.y + this.gravitySpeed <
-                        collidableObjects[i].y - collidableObjects[i].height)
-                ) {
+                        this.x + this.velocityX < lastInRowObjects[currentRow + 1].x &&
+                        this.x + this.velocityX > lastInRowObjects[currentRow].x &&
+                        this.y + this.gravitySpeed < 
+                        collidableObjects[i].y - collidableObjects[i].height
+                    ) {
                     this.nullifyGravity();
                 }
                 
