@@ -25,22 +25,36 @@ class Player {
 
         var currentRow = -2;
         if (!this.hitBottom) {
-            for (let i = 0; i < collidableObjects.length; i++) { // Collidableobjects < också
+            for (let i = 0; i < collidableObjects.length; i++) { 
                 if (currentRow < 0) {
                     currentRow += 2;
                 }
 
-                if (this.y + this.velocityY < collidableObjects[i].y && 
-                    this.x + this.velocityX > lastInRowObjects[currentRow + 1].x &&
-                    this.x + this.velocityX < lastInRowObjects[currentRow].x) {
-                        this.velocityY = -this.velocityY
+                // Checks if the player is jumping into the side of a platform
+                if(this.x + this.velocityX <
+                        lastInRowObjects[currentRow + 1].x &&
+                    this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW &&
+                    this.y + this.velocityY < collidableObjects[i].y) {
+                        this.velocityX = -this.velocityX;
                 }
 
+
+                // Checks if the player is jumping into a platform from under it
+                if (
+                    this.y + this.velocityY < collidableObjects[i].y &&
+                    this.x + this.velocityX >
+                        lastInRowObjects[currentRow + 1].x &&
+                    this.x + this.velocityX < lastInRowObjects[currentRow].x - tileW
+                ) {
+                    this.velocityY = -this.velocityY;
+                }
+
+                // Checks if the player is landing on a platform
                 if (
                         this.y + scaledSize + this.gravitySpeed >
                         collidableObjects[i].y &&
                         this.x + this.velocityX < lastInRowObjects[currentRow + 1].x &&
-                        this.x + this.velocityX > lastInRowObjects[currentRow].x &&
+                        this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW &&
                         this.y + this.gravitySpeed < 
                         collidableObjects[i].y - collidableObjects[i].height
                     ) {
@@ -48,6 +62,9 @@ class Player {
                 }
                 
             }
+        }
+        else {
+            
         }
 
         // If the player hits the ground, gravity loses its effect
