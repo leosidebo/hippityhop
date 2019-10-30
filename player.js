@@ -44,12 +44,12 @@ class Player {
 
 
                 // Checks if the player is jumping into a platform from under it
-                if (
-                    this.y + this.velocityY < collidableObjects[i].y &&
-                    this.x + this.velocityX >
-                        lastInRowObjects[currentRow + 1].x &&
-                    this.x + this.velocityX < lastInRowObjects[currentRow].x - tileW
-                ) {
+                 if (
+                        this.y + this.velocityY < collidableObjects[i].y &&
+                        this.x + this.velocityX <
+                            lastInRowObjects[currentRow + 1].x &&
+                        this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW
+                    ) {
                     this.velocityY = -this.velocityY;
                 }
 
