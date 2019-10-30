@@ -31,16 +31,17 @@ class Player {
                 }
 
                 console.log(collidableObjects[i].y + tileH);
-                console.log(this.y);
+                console.log(this.x);
 
                 // Checks if the player is jumping into the side of a platform
-                /*if(this.x + this.velocityX <
-                        lastInRowObjects[currentRow + 1].x &&
-                    this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW &&
-                    this.y + this.velocityY < collidableObjects[i].y - tileH && 
-                    this.y + this.velocityY > collidableObjects[i].y + tileH) {
-                        this.velocityX = -this.velocityX;
-                } */
+                if(
+                        this.x + this.velocityX <
+                        lastInRowObjects[currentRow + 1].x + tileW &&
+                        this.x + this.velocityX + scaledSize > lastInRowObjects[currentRow].x &&
+                        this.y + this.velocityY + scaledSize >= collidableObjects[i].y && 
+                        this.y + this.velocityY <= collidableObjects[i].y + tileH) {
+                    this.velocityX = -this.velocityX;
+                } 
 
 
                 // Checks if the player is jumping into a platform from under it
@@ -48,17 +49,19 @@ class Player {
                         this.y + this.velocityY < collidableObjects[i].y &&
                         this.x + this.velocityX <
                             lastInRowObjects[currentRow + 1].x &&
-                        this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW
+                        this.x + this.velocityX + scaledSize > lastInRowObjects[currentRow].x
                     ) {
                     this.velocityY = -this.velocityY;
                 }
+
+                console.log(scaledSize);
 
                 // Checks if the player is landing on a platform
                 if (
                         this.y + scaledSize + this.gravitySpeed >
                         collidableObjects[i].y &&
-                        this.x + this.velocityX < lastInRowObjects[currentRow + 1].x &&
-                        this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW &&
+                        this.x + this.velocityX < lastInRowObjects[currentRow + 1].x + tileW &&
+                        this.x + this.velocityX + scaledSize > lastInRowObjects[currentRow].x &&
                         this.y + this.gravitySpeed < 
                         collidableObjects[i].y - collidableObjects[i].height
                     ) {
@@ -87,15 +90,6 @@ class Player {
             this.velocityX = -this.velocityX / 2;
             this.velocityY = this.gravitySpeed;
         }
-
-        // Does not work at the moment
-        /* if (
-            this.y - this.velocityY == 0 &&
-            this.y + scaledSize + this.velocityY == canvas.height
-        ) {
-            this.velocityX = 0;
-            this.velocityY = this.gravitySpeed;
-        } */
 
         this.x += this.velocityX;
         this.y += this.velocityY;
