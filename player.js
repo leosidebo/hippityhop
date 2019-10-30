@@ -30,13 +30,17 @@ class Player {
                     currentRow += 2;
                 }
 
+                console.log(collidableObjects[i].y + tileH);
+                console.log(this.y);
+
                 // Checks if the player is jumping into the side of a platform
-                if(this.x + this.velocityX <
+                /*if(this.x + this.velocityX <
                         lastInRowObjects[currentRow + 1].x &&
                     this.x + this.velocityX > lastInRowObjects[currentRow].x - tileW &&
-                    this.y + this.velocityY < collidableObjects[i].y) {
+                    this.y + this.velocityY < collidableObjects[i].y - tileH && 
+                    this.y + this.velocityY > collidableObjects[i].y + tileH) {
                         this.velocityX = -this.velocityX;
-                }
+                } */
 
 
                 // Checks if the player is jumping into a platform from under it
